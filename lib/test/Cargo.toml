@@ -1,0 +1,20 @@
+[package]
+name = "nvmitm-test"
+version = "0.0.1"
+authors = ["arcnmx"]
+
+[lib]
+crate_type = ["cdylib"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+nvmitm = { path = "../../" }
+nvapi-sys = { git = "https://github.com/arcnmx/nvapi-rs.git" }
+nvapi = { git = "https://github.com/arcnmx/nvapi-rs.git" }
+log = "0.3.8"
+simplelog = { version = "0.4.3", default-features = true }
