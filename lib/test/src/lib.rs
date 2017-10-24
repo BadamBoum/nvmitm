@@ -8,7 +8,7 @@ extern crate nvmitm;
 use std::os::raw::c_void;
 use std::ffi::CStr;
 use nvmitm::Unsafe;
-use nvapi::types::RawConversion;
+use nvapi::RawConversion;
 use sys::{Api, NvAPI_Status};
 
 const LOG_PATH: &'static str = "E:/nvlog.txt";
@@ -40,7 +40,7 @@ pub extern "C" fn nvapi_QueryInterface(id: u32) -> *const c_void {
 pub fn pre_log(id: Result<Api, u32>) {
     match id {
         Ok(api) => info!("{:?}()", api),
-        Err(id) => info!("Unknown API {} ()", id),
+        Err(id) => info!("Unknown API {}", id),
     }
 }
 

@@ -14,7 +14,7 @@ panic = "abort"
 
 [dependencies]
 nvmitm = { path = "../../" }
-nvapi-sys = { git = "https://github.com/arcnmx/nvapi-rs.git" }
-nvapi = { git = "https://github.com/arcnmx/nvapi-rs.git" }
+nvapi-sys = { version = "0.0.2", default-features = false, git = "https://github.com/arcnmx/nvapi-rs.git" }
+nvapi = { version = "0.0.2", default-features = false, git = "https://github.com/arcnmx/nvapi-rs.git" }
 log = "0.3.8"
 simplelog = { version = "0.4.3", default-features = true }
