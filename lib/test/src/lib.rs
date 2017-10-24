@@ -32,6 +32,7 @@ pub extern "C" fn nvapi_QueryInterface(id: u32) -> *const c_void {
         let mut config = nvmitm::Configuration::default();
         config.pre_hook = Some(pre_log);
         config.hooks.insert(Api::NvAPI_GPU_SetClockBoostTable, unsafe { Unsafe::new(hook_set_clock_boost_table as usize as *const _) });
+        config.hooks.insert(Api::NvAPI_GPU_SetCoolerLevels, unsafe { Unsafe::new(hook_set_cooler_levels as usize as *const _) });
 
         config
     })
@@ -49,5 +50,13 @@ pub extern "C" fn hook_set_clock_boost_table(gpu: sys::handles::NvPhysicalGpuHan
 
     unsafe {
         sys::gpu::clock::private::NvAPI_GPU_SetClockBoostTable(gpu, table)
+    }
+}
+
+pub extern "C" fn hook_set_cooler_levels(gpu: sys::handles::NvPhysicalGpuHandle, index: u32, data: &sys::gpu::cooler::private::NV_GPU_SETCOOLER_LEVEL) -> NvAPI_Status {
+    info!("NvAPI_GPU_SetCoolerLevels({:?}, {}, {:#?})", gpu, index, data);
+
+    unsafe {
+        sys::gpu::cooler::private::NvAPI_GPU_SetCoolerLevels(gpu, index, data)
     }
 }
